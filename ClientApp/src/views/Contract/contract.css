@@ -1,0 +1,48 @@
+
+.header {
+    color: #444;
+    font-size: 32.5px;
+    margin-bottom: 35px;
+    text-align: center;
+    font-Weight: bold;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.title {
+    margin-top: 22.5px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.emp {
+    font-weight: bold
+}
+
+.parag { 
+    color: #444;
+    font-size: 19.25px;
+    line-height: 33px; 
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.address {
+    color: #444;
+    font-size: 17.5px;
+    font-weight: bold;
+    margin-top: -7.5px;
+}
+
+@page {
+    margin: 2cm;
+
+    @top-center {
+        content: element(pageHeader);
+    }
+
+    @bottom-center {
+        content: element(pageFooter);
+    }
+}
