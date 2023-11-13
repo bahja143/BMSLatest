@@ -1,6 +1,5 @@
 import { useFormikContext } from "formik";
 import Select from "react-select";
-import FontAwesome from "react-fontawesome";
 
 import { FormGroup, FormLabel } from "react-bootstrap";
 
@@ -10,6 +9,7 @@ const SelectField = ({
   label,
   onShow,
   options,
+  subTitle,
   required,
   ...otherProps
 }) => {
@@ -28,15 +28,16 @@ const SelectField = ({
         onBlur={() => setFieldTouched(name)}
         {...otherProps}
       />
-      {show && (
-        <a className="link mb-5" onClick={onShow}>
-          <FontAwesome name="fas fa-plus-circle" />
-          New customer
-        </a>
-      )}
       {errors[name] && touched[name] ? (
         <div className="text-danger">{errors[name]}</div>
       ) : null}
+      {show && (
+        <div className="mt-2">
+          <a className="link" onClick={onShow} href="#">
+            <i className="fas fa-plus-circle"> {subTitle} </i>
+          </a>
+        </div>
+      )}
     </FormGroup>
   );
 };

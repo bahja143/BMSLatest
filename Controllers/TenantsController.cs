@@ -37,7 +37,7 @@ namespace BMSystem.Controllers
             if (!ModelState.IsValid) return BadRequest();
 
             var tenantDb =
-               await _context.Tenants.SingleOrDefaultAsync(c => c.Name == tenant.Name || c.Telephone == tenant.Telephone);
+               await _context.Tenants.SingleOrDefaultAsync(c => c.Name == tenant.Name && c.Telephone == tenant.Telephone);
 
             if (tenantDb != null) return BadRequest("This tenant already registered");
 

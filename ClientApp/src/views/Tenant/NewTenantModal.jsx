@@ -47,7 +47,6 @@ const NewTenantModal = ({ show, setShow, tenant, schema, handleSubmit }) => {
 
                   <UploadFileDropZone
                     type="file"
-                    required
                     value={values["identityDocument"]}
                     file="identityDocument"
                     label="Identity Document"
@@ -59,7 +58,7 @@ const NewTenantModal = ({ show, setShow, tenant, schema, handleSubmit }) => {
                 </Col>
                 <Col>
                   <TextField name="name" label="Name" required />
-                  <TextField name="telephone" label="Telephone" required />
+                  <TextField name="telephone" label="Telephone" />
                   <TextAreaField name="address" label="Address" />
                 </Col>
               </Row>

@@ -27,7 +27,7 @@ const adminItems = {
       children: [
         {
           id: "Registration",
-          title: "Registration",
+          title: "List",
           type: "collapse",
           icon: "feather icon-box",
           children: [
@@ -173,7 +173,7 @@ const userItems = {
       children: [
         {
           id: "Registration",
-          title: "Registration",
+          title: "List",
           type: "collapse",
           icon: "feather icon-box",
           children: [
