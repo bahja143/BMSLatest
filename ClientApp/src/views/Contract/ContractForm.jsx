@@ -287,7 +287,7 @@ export default function ContractForm(props) {
         tenant={tenant}
         show={showTenant}
         schema={TenantSchema}
-        setShow={handleShowTenant}
+        setShow={setShowTenant}
         handleSubmit={handleSubmitTenant}
       />
       <Card>
