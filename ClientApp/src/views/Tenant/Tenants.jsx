@@ -16,7 +16,7 @@ const schema = Yup.object({
   name: Yup.string().min(5).max(50).required().label("Name"),
   photo: Yup.string().label("Photo"),
   telephone: Yup.string().required().label("Telephone"),
-  identityDocument: Yup.string().required().label("Identity document"),
+  identityDocument: Yup.string().label("Identity document"),
   messageChannel: Yup.string().label("Message channel"),
   address: Yup.string().label("Address"),
 });

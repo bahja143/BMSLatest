@@ -69,7 +69,7 @@ export default function ViewReceiptModel({ show, setShow, receipt }) {
           onClick={() => setShow(false)}
           style={{ fontSize: 22, color: "black" }}
         >
-          <FontAwesome name="close" />
+          <FontAwesome style={{ fontSize: 20 }} className="feather icon-x" />
         </Button>
       </Modal.Header>
       <Modal.Body>
@@ -81,20 +81,15 @@ export default function ViewReceiptModel({ show, setShow, receipt }) {
         </InputGroup>
 
         <InputGroup className={classes.formGroup}>
+          <InputGroupText>Payment Method</InputGroupText>
+          <Input value={receipt?.paymentMethod} disabled />
           <InputGroupText>Paid By</InputGroupText>
           <Input value={receipt?.payerName} disabled />
         </InputGroup>
 
         <InputGroup className={classes.formGroup}>
-          <InputGroupText>Payment Method</InputGroupText>
-          <Input value={receipt?.paymentMethod} disabled />
-        </InputGroup>
-
-        <InputGroup className={classes.formGroup}>
-          <InputGroupText>Description</InputGroupText>
-          <textarea className="form-control" disabled rows="5">
-            {receipt?.description}
-          </textarea>
+          <InputGroupText>Remark</InputGroupText>
+          <Input value={receipt?.description} disabled />
         </InputGroup>
 
         <div className="row">

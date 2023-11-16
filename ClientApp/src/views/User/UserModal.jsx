@@ -23,10 +23,10 @@ const UserModal = ({
         <Button
           size="sm"
           variant="light"
-          className="float-right"
           onClick={onClose}
+          className="float-right"
         >
-          <FontAwesome style={{ fontSize: 15 }} name="fas fa-close" />
+          <FontAwesome style={{ fontSize: 20 }} className="feather icon-x" />
         </Button>
       </Modal.Header>
       <Form onSubmit={onSubmit}>

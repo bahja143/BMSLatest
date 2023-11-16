@@ -1,12 +1,11 @@
+import { saveAs } from "file-saver";
 import { Modal } from "react-bootstrap";
 import { makeStyles } from "@mui/styles";
+import FontAwesome from "react-fontawesome";
 import { Grid, Button } from "@mui/material";
 import { InputGroup, Input, InputGroupText } from "reactstrap";
-import FontAwesome from "react-fontawesome";
-import { saveAs } from "file-saver";
 
 import Profile from "../../components/Profile";
-
 import colors from "../../config/colors";
 
 const useStyles = makeStyles({
@@ -96,11 +95,12 @@ export default function ViewTenant({
       <Modal.Header>
         <Modal.Title>Tenant information</Modal.Title>
         <Button
+          variant="outlined"
           className="float-right"
           onClick={handleCloseTenant}
           style={{ fontSize: 22, color: "black" }}
         >
-          <FontAwesome className="fas fa-close" name="close" />
+          <FontAwesome style={{ fontSize: 20 }} className="feather icon-x" />
         </Button>
       </Modal.Header>
       <Modal.Body>

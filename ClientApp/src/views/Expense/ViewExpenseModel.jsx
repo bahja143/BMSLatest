@@ -69,7 +69,7 @@ export default function ViewExpenseModel({ show, setShow, expense }) {
           onClick={() => setShow(false)}
           style={{ fontSize: 22, color: "black" }}
         >
-          <FontAwesome name="close" />
+          <FontAwesome style={{ fontSize: 20 }} className="feather icon-x" />
         </Button>
       </Modal.Header>
       <Modal.Body>

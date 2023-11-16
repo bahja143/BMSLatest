@@ -30,7 +30,7 @@ namespace BMSystem.Controllers
                                                  e.ExpenseCategory,
                                                  e.ExpenseCategoryId,
                                                  name = e.ExpenseCategory.Name
-                                             }).ToListAsync());
+                                             }).OrderByDescending(r => r.Date).ToListAsync());
         }
 
         [HttpGet("{id}")]

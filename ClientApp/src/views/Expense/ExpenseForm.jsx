@@ -16,9 +16,9 @@ import expensesApi from "../../api/expensesApi";
 
 const schema = Yup.object({
   id: Yup.number(),
-  amount: Yup.number().required().min(1000).max(100000).label("Amount"),
-  description: Yup.string().required().label("Description"),
+  description: Yup.string().label("Description"),
   expenseCategoryId: Yup.string().required().label("Category"),
+  amount: Yup.number().required().min(1000).max(100000).label("Amount"),
 });
 
 export default function ExpenseForm(props) {

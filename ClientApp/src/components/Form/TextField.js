@@ -13,11 +13,11 @@ const TextField = ({ name, label, required, ...otherProps }) => {
         {label} {required && <span className="text-danger">*</span>}
       </FormLabel>
       <input
-        className="form-control"
+        value={values[name]}
         {...otherProps}
+        className="form-control"
         onChange={handleChange(name)}
         onBlur={() => setFieldTouched(name)}
-        value={values[name]}
       />
       {errors[name] && touched[name] ? (
         <div className="text-danger">{errors[name]}</div>

@@ -20,64 +20,59 @@ namespace BMSystem.Controllers
         [HttpGet]
         public ActionResult getAll()
         {
-            try
+
+            var receipts = _context
+               .Receipts
+               .Include(r => r.details)
+               .ToList()
+               .Select(r => new
+               {
+                   r.Id,
+                   r.Date,
+                   r.details,
+                   r.PayerName,
+                   r.Description,
+                   r.MethodOfPayment,
+                   TenantId = _context.Bills.Include(B => B.Contract)
+                                              .Where(b => r.details.Select(d => d.BillId)
+                                              .Contains(b.Id))
+                                              .ToList()[0].Contract.TenantId,
+                   Bills = _context.Bills.Where(b => r.details.Select(d => d.BillId)
+                                         .Contains(b.Id))
+                                         .Select(b => new
+                                         {
+                                             b.Id,
+                                             b.Date,
+                                             b.Amount,
+                                             b.DueDate,
+                                             b.Description,
+                                             PaidAmount = _context.ReceiptDetails.SingleOrDefault(rd => rd.BillId == b.Id && rd.ReceiptId == r.Id).Amount,
+                                         }).ToList()
+
+               })
+               .OrderByDescending(r => r.Date)
+               .ToList();
+
+            return Ok(receipts.Select(r => new
             {
-                var receipts = _context
-                   .Receipts
-                   .Include(r => r.details)
-                   .ToList()
-                   .Select(r => new
-                   {
-                       r.Id,
-                       r.Date,
-                       r.details,
-                       r.PayerName,
-                       r.Description,
-                       r.MethodOfPayment,
-                       TenantId = _context.Bills.Include(B => B.Contract)
-                                                  .Where(b => r.details.Select(d => d.BillId)
-                                                  .Contains(b.Id))
-                                                  .ToList()[0].Contract.TenantId,
-                       Bills = _context.Bills.Where(b => r.details.Select(d => d.BillId)
-                                             .Contains(b.Id))
-                                             .Select(b => new
-                                             {
-                                                 b.Id,
-                                                 b.Date,
-                                                 b.Amount,
-                                                 b.DueDate,
-                                                 b.Description,
-                                                 PaidAmount = _context.ReceiptDetails.SingleOrDefault(r => r.BillId == b.Id).Amount,
-                                             }).ToList()
+                r.Id,
+                r.Date,
+                r.Bills,
+                r.PayerName,
+                r.Description,
+                totalAmount = r.details.Sum(r => r.Amount),
+                PaymentMethod = r.MethodOfPayment,
+                Name = _context.Tenants.SingleOrDefault(t => t.Id == r.TenantId).Name,
+                Tenant = _context.Tenants.Where(t => t.Id == r.TenantId)
+                                         .Select(t => new
+                                         {
+                                             t.Id,
+                                             t.Name,
+                                             t.Address,
+                                             t.Telephone,
+                                         }).ToList()[0]
+            }));
 
-                   })
-                   .ToList();
-
-                return Ok(receipts.Select(r => new
-                {
-                    r.Id,
-                    r.Date,
-                    r.Bills,
-                    r.PayerName,
-                    r.Description,
-                    totalAmount = r.details.Sum(r => r.Amount),
-                    PaymentMethod = r.MethodOfPayment,
-                    Name = _context.Tenants.SingleOrDefault(t => t.Id == r.TenantId).Name,
-                    Tenant = _context.Tenants.Where(t => t.Id == r.TenantId)
-                                             .Select(t => new
-                                             {
-                                                 t.Id,
-                                                 t.Name,
-                                                 t.Address,
-                                                 t.Telephone,
-                                             }).ToList()[0]
-                }));
-            }
-            catch (System.Exception error)
-            {
-
-                throw;
-            }
         }
 
         [HttpGet("{id}")]
@@ -136,9 +131,9 @@ namespace BMSystem.Controllers
             await _context.Receipts.AddAsync(receipt);
             await _context.SaveChangesAsync();
 
-            var billsDb = await new BillsController(_context).getAll();
+            var receiptsDb = await getById(receipt.Id);
 
-            return Ok(billsDb);
+            return Ok(receiptsDb);
         }
 
         [HttpPut("{id}")]

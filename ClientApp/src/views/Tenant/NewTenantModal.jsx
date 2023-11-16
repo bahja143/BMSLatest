@@ -30,7 +30,10 @@ const NewTenantModal = ({ show, setShow, tenant, schema, handleSubmit }) => {
                 className="float-right"
                 onClick={() => setShow(false)}
               >
-                <FontAwesome style={{ fontSize: 15 }} name="fas fa-close" />
+                <FontAwesome
+                  style={{ fontSize: 20 }}
+                  className="feather icon-x"
+                />
               </Button>
             </Modal.Header>
             <Modal.Body>
@@ -58,7 +61,7 @@ const NewTenantModal = ({ show, setShow, tenant, schema, handleSubmit }) => {
                 </Col>
                 <Col>
                   <TextField name="name" label="Name" required />
-                  <TextField name="telephone" label="Telephone" />
+                  <TextField name="telephone" label="Telephone" required />
                   <TextAreaField name="address" label="Address" />
                 </Col>
               </Row>

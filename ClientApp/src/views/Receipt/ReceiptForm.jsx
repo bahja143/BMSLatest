@@ -1,30 +1,26 @@
-import { useState, useEffect } from "react";
-import { Card, Row, Col, Table, Button } from "react-bootstrap";
+import * as Yup from "yup";
 import { Formik } from "formik";
+import ReactSelect from "react-select";
 import { toast } from "react-toastify";
 import FontAwesome from "react-fontawesome";
-import ReactSelect from "react-select";
-import * as Yup from "yup";
+import { useState, useEffect } from "react";
+import { Card, Row, Col, Table, Button } from "react-bootstrap";
 
-import {
-  TextField,
-  SubmitBtn,
-  SelectField,
-  TextAreaField,
-} from "../../components/Form";
+import { TextField, SubmitBtn, SelectField } from "../../components/Form";
 
 import PrintReceiptModel from "./PrintReceiptModel";
 
-import tenantsApi from "../../api/tenantsApi";
 import receiptsApi from "../../api/receiptsApi";
+import tenantsApi from "../../api/tenantsApi";
 import billsApi from "../../api/billsApi";
 
 const schema = Yup.object({
   id: Yup.number(),
+  payerName: Yup.string().label("Payer name"),
+  description: Yup.string().label("Description"),
+  tenantId: Yup.string().required().label("Tenant"),
   methodOfPayment: Yup.string().required().label("Method of payment"),
   details: Yup.array().min(1, "You must select at least 1 Bill").label("Bills"),
-  payerName: Yup.string().required().label("Payer name"),
-  description: Yup.string().label("Description"),
 });
 
 export default function ReceiptForm(props) {
@@ -36,7 +32,6 @@ export default function ReceiptForm(props) {
     description: "",
     methodOfPayment: "",
   });
-  const [isLoading, setIsLoading] = useState(true);
   const [tenants, setTenants] = useState([]);
   const [bills, setBills] = useState([]);
   const [paymentMethods] = useState([
@@ -44,10 +39,11 @@ export default function ReceiptForm(props) {
     { label: "Hello Cash", value: "Hello Cash" },
     { label: "Cash", value: "Cash" },
   ]);
-  const [show, setShow] = useState(false);
-  const [printibleReceipt, setPrintibleReceipt] = useState({});
   const [bill, setBill] = useState({});
+  const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [printibleReceipt, setPrintibleReceipt] = useState({});
 
   const handleLoad = async () => {
     setIsLoading(true);
@@ -94,7 +90,11 @@ export default function ReceiptForm(props) {
     if (obj.id === 0) {
       const response = await receiptsApi.add({
         ...obj,
+        payerName: obj.payerName
+          ? obj.payerName
+          : tenants?.find((t) => t.id === receipt.tenantId)?.name,
       });
+
       setIsLoading(false);
 
       if (response.ok) {
@@ -267,14 +267,14 @@ export default function ReceiptForm(props) {
                 <Row>
                   <Col>
                     <SelectField
-                      isLoading={isLoading}
+                      isDisabled={receipt.id !== 0}
                       options={tenants.map((t) => ({
                         label: `${t.name} (${t.telephone})`,
                         value: t.id,
                       }))}
+                      isLoading={isLoading}
                       name="tenantId"
                       label="Tenant"
-                      isDisabled={receipt.id !== 0}
                       required
                     />
                   </Col>
@@ -284,6 +284,24 @@ export default function ReceiptForm(props) {
                       name="methodOfPayment"
                       label="Payment Method"
                       required
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <TextField
+                      defaultValue={
+                        tenants?.find((t) => t.id === values["tenantId"])?.name
+                      }
+                      label="Who's paying"
+                      name="payerName"
+                    />
+                  </Col>
+                  <Col>
+                    <TextField
+                      label="Remark"
+                      name="description"
+                      placeholder="Extra information"
                     />
                   </Col>
                 </Row>
@@ -410,21 +428,6 @@ export default function ReceiptForm(props) {
                         ))}
                       </tbody>
                     </Table>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <TextField name="payerName" label="Who's paying" required />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <TextAreaField
-                      rows="5"
-                      placeholder="Extra information"
-                      name="description"
-                      label="Description"
-                    />
                   </Col>
                 </Row>
               </Card.Body>

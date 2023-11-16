@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Card } from "react-bootstrap";
+import { Table, Row, Col, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 import ClipLoader from "react-spinners/ClipLoader";
@@ -30,6 +30,7 @@ const Dashboard = () => {
     if (status !== 200) return toast.error("Network Error");
 
     setDate(data);
+    console.log(data);
   };
   const formatNumber = (inputNumber) => {
     let formetedNumber = Number(inputNumber)
@@ -52,14 +53,14 @@ const Dashboard = () => {
         <Col md={6} xl={4}>
           <Card className="theme-bg bitcoin-wallet">
             <Card.Body>
-              <h5 className="text-white mb-2">Bills</h5>
+              <h5 className="text-white mb-2">Bills Monthly</h5>
               <h2 className="text-white mb-3 f-w-300">
                 {isLoading ? (
                   <ClipLoader
-                    color="#fff"
                     size={40}
-                    aria-label="Loading Spinner"
+                    color="#fff"
                     data-testid="loader"
+                    aria-label="Loading Spinner"
                   />
                 ) : (
                   formatNumber(data.totalBills)
@@ -73,7 +74,7 @@ const Dashboard = () => {
         <Col md={6} xl={4}>
           <Card className="theme-bg2 bitcoin-wallet">
             <Card.Body>
-              <h5 className="text-white mb-2">Collected Bill</h5>
+              <h5 className="text-white mb-2">Collected Bill Yearly</h5>
               <h2 className="text-white mb-3 f-w-300">
                 {isLoading ? (
                   <ClipLoader
@@ -96,7 +97,7 @@ const Dashboard = () => {
         <Col md={12} xl={4}>
           <Card className="bg-c-blue bitcoin-wallet">
             <Card.Body>
-              <h5 className="text-white mb-2">Expenses</h5>
+              <h5 className="text-white mb-2">Expenses Yearly</h5>
               <h2 className="text-white mb-3 f-w-300">
                 {isLoading ? (
                   <ClipLoader
@@ -118,23 +119,41 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row>
-        <Col xl={8}>
-          <Card>
-            <Card.Body className="border-bottom">
-              <h4>Collected Bills This Year</h4>
-              <Chart
-                {...pieChart2}
-                series={[
-                  {
-                    name: "Collected Bills",
-                    data: data.receipts.map((b) => {
-                      b.x = new Date(b.x).getTime();
-
-                      return [b.x, b.y];
-                    }),
-                  },
-                ]}
-              />
+        <Col md={7} xl={8} xs={12}>
+          <Card className="Recent-Users">
+            <Card.Header>
+              <Card.Title as="h5">Recent Payments</Card.Title>
+            </Card.Header>
+            <Card.Body className="px-0 py-2">
+              <Table responsive hover>
+                <tbody>
+                  {data?.receipts?.map((i) => (
+                    <tr key={i.id} className="unread">
+                      <td>
+                        <h6 className="mb-1">{i.payerName}</h6>
+                      </td>
+                      <td>
+                        <h6 className="mb-1">
+                          {" "}
+                          ETB{" "}
+                          {formatNumber(
+                            i.details
+                              ?.map((r) => r.amount)
+                              .reduce((a, b) => a + b)
+                          )}{" "}
+                        </h6>
+                        <p className="m-0">{i.methodOfPayment} </p>
+                      </td>
+                      <td>
+                        <h6 className="text-muted">
+                          <i className="fa fa-circle text-c-green f-10 m-r-15" />
+                          {new Date(i.date).toDateString()}
+                        </h6>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             </Card.Body>
           </Card>
         </Col>

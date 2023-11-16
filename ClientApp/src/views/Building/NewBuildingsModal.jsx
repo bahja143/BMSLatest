@@ -31,7 +31,10 @@ const NewBuildingsModal = ({
                 className="float-right"
                 onClick={() => setShow(false)}
               >
-                <FontAwesome style={{ fontSize: 15 }} name="fas fa-close" />
+                <FontAwesome
+                  style={{ fontSize: 20 }}
+                  className="feather icon-x"
+                />
               </Button>
             </Modal.Header>
             <Modal.Body>

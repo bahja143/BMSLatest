@@ -1,9 +1,9 @@
+import { saveAs } from "file-saver";
 import { Modal } from "react-bootstrap";
 import { makeStyles } from "@mui/styles";
+import FontAwesome from "react-fontawesome";
 import { Grid, Button, ButtonGroup } from "@mui/material";
 import { InputGroup, Input, InputGroupText } from "reactstrap";
-import { saveAs } from "file-saver";
-import FontAwesome from "react-fontawesome";
 
 import colors from "../../config/colors";
 
@@ -110,7 +110,7 @@ export default function ViewContractModel({
           onClick={() => setShow(false)}
           style={{ fontSize: 22, color: "black" }}
         >
-          <FontAwesome name="close" />
+          <FontAwesome style={{ fontSize: 20 }} className="feather icon-x" />
         </Button>
       </Modal.Header>
       <Modal.Body>
@@ -206,7 +206,7 @@ export default function ViewContractModel({
                 className={classes.formGroup}
                 aria-label="outlined primary button group"
               >
-                <InputGroupText>License document</InputGroupText>
+                <InputGroupText>License document: </InputGroupText>
                 <Button
                   fullWidth
                   color="success"

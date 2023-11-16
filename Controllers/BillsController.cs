@@ -58,9 +58,11 @@ namespace BMSystem.Controllers
                 TenantName = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Name,
                 Amount = b.Amount - _context.ReceiptDetails.Where(r => r.BillId == b.Id).Sum(b => b.Amount),
                 Room = _context.Rooms.SingleOrDefault(r => r.Id == b.Contract.RoomId).RoomNumber + "-" + _context.Rooms.SingleOrDefault(r => r.Id == b.Contract.RoomId).FloorNo
-            }).Where(b => b.Amount > 0);
+            }).Where(b => b.Amount > 0)
+              .Where(t => t.TenantId == Id)
+              .ToList();
 
-            return Ok(outputData.Where(t => t.TenantId == Id));
+            return Ok(outputData);
         }
 
         [HttpGet("/api/bills/allBills")]

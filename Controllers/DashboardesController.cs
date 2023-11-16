@@ -1,7 +1,8 @@
 using BMSystem.Persistance;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace BMSystem.Controllers
 {
@@ -19,7 +20,17 @@ namespace BMSystem.Controllers
         [HttpGet]
         public async Task<ActionResult> getAll()
         {
-            var paidBillsId = _context.ReceiptDetails.Select(r => r.BillId).ToList();
+            var Receipts = await _context.Receipts.Include(r => r.details).Select(r =>
+            new
+            {
+                r.Id,
+                r.Date,
+                r.details,
+                r.PayerName,
+                r.Description,
+                r.MethodOfPayment
+            }).Take(7).ToListAsync();
+            var paidBillsId = await _context.ReceiptDetails.Select(r => r.BillId).ToListAsync();
             var bills = await _context.Bills.Where(b => !paidBillsId.Contains(b.Id))
                                             .ToListAsync();
 
@@ -54,13 +65,6 @@ namespace BMSystem.Controllers
                 .Contractes
                 .Where(c => c.IsCurrent && c.EndDate > DateTime.Now).Count();
             var Bills = bills.Select(b => new { X = b.DueDate, Y = b.Amount }).ToList();
-            var Receipts = receipts.Select(r => new
-            {
-                date = r.Date,
-                amount = r.Bills.Sum(b => b.Amount),
-
-            }).Select(r => new { X = r.date, Y = r.amount }).ToList();
-
 
             var output = new
             {

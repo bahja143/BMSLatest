@@ -4,14 +4,14 @@ import User from "../assets/images/user.png";
 
 const useStyles = makeStyles({
   container: {
-    width: "100%",
     height: 125,
-    backgroundColor: "#f3f4f6",
-    borderRadius: 10,
+    width: "100%",
     marginTop: 25,
     display: "flex",
-    alignItems: "center",
     paddingLeft: 17,
+    borderRadius: 10,
+    alignItems: "center",
+    backgroundColor: "#f3f4f6",
   },
   profileHover: {
     zIndex: 1,
@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     width: "100%",
     height: "100%",
     borderRadius: 50,
+    objectFit: "cover",
   },
   imageContainer: {
     width: 100,
@@ -37,20 +38,20 @@ const useStyles = makeStyles({
   },
   text: {
     fontSize: 15,
-    fontWeight: "400",
-    color: "rgb(99, 115, 129)",
-    position: "relative",
     bottom: 12,
+    fontWeight: "400",
+    position: "relative",
     fontFamily: "Poppins",
+    color: "rgb(99, 115, 129)",
   },
 });
 
 export default function Profile({
   name,
   icon,
-  onClick,
-  subText,
   photo,
+  subText,
+  onClick,
   hover = false,
 }) {
   const classes = useStyles();

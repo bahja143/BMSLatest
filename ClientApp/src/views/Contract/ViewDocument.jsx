@@ -12,7 +12,7 @@ function ViewDocument({ show, document, handleCloseDocument }) {
           onClick={handleCloseDocument}
           style={{ fontSize: 20, color: "black" }}
         >
-          <FontAwesome name="fas fa-close" />
+          <FontAwesome style={{ fontSize: 20 }} className="feather icon-x" />
         </Button>
       </Modal.Header>
       <img width="100%" height="100%" src={document} alt="contract document" />
