@@ -161,7 +161,7 @@ const Contracts = () => {
                         <Fontawesome
                           name="print"
                           style={{ fontSize: 17 }}
-                          className="fas fa-eye text-primary "
+                          className="fas fa-print text-primary "
                         />
                       </Button>
                       {/* <NavLink

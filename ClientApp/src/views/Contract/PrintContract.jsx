@@ -130,8 +130,11 @@ const PrintContract = ({ show, setShow, contract }) => {
                 {contract?.room?.roomSizeInSq} Karre
               </p>
               <p className="parag">
-                <span className="emp"> Qiimaha halka karre:</span>{" "}
+                <span className="emp"> Qiimaha halkii karre:</span>{" "}
                 {formatNumber(contract?.amountPerSq)} Birr
+              </p>
+              <p className="parag">
+                <span className="emp"> TIN No:</span> {contract?.tNo}
               </p>
             </Col>
           </Row>

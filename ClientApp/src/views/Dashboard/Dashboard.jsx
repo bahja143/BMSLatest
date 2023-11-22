@@ -1,13 +1,11 @@
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { Table, Row, Col, Card } from "react-bootstrap";
-import { toast } from "react-toastify";
 
-import ClipLoader from "react-spinners/ClipLoader";
-import Chart from "react-apexcharts";
-
-import shape3 from "../../assets/images/shape3.png";
-import pieChart2 from "./bar-chart-2";
 import pieChart1 from "./pieChart1";
+import Chart from "react-apexcharts";
+import ClipLoader from "react-spinners/ClipLoader";
+import shape3 from "../../assets/images/shape3.png";
 
 import dashboardApi from "../../api/dashboardApi";
 
@@ -30,7 +28,6 @@ const Dashboard = () => {
     if (status !== 200) return toast.error("Network Error");
 
     setDate(data);
-    console.log(data);
   };
   const formatNumber = (inputNumber) => {
     let formetedNumber = Number(inputNumber)

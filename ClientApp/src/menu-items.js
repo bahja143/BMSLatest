@@ -109,7 +109,7 @@ const adminItems = {
         },
         {
           id: "Expense",
-          title: "Expense Form",
+          title: "New Expense",
           type: "item",
           icon: "feather icon-credit-card",
           url: "/expense/form",

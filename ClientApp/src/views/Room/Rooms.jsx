@@ -25,11 +25,11 @@ const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [room, setRoom] = useState({
     id: 0,
-    roomNumber: "",
-    roomSizeInSq: "",
     floorNo: "",
-    buildingId: "",
+    buildingId: 1,
+    roomNumber: "",
     description: "",
+    roomSizeInSq: "",
   });
   const [buildings, setBuildings] = useState([]);
   const [tableHeaders] = useState([
@@ -99,11 +99,11 @@ const Rooms = () => {
     setShow(true);
     setRoom({
       id: 0,
-      roomNumber: "",
-      roomSizeInSq: "",
       floorNo: "",
-      buildingId: "",
+      buildingId: 1,
+      roomNumber: "",
       description: "",
+      roomSizeInSq: "",
     });
   };
 

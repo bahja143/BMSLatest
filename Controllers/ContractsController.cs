@@ -1,8 +1,8 @@
 using BMSystem.Modal;
 using BMSystem.Persistance;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BMSystem.Controllers
 {

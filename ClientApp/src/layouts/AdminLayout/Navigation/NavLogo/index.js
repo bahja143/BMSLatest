@@ -7,7 +7,7 @@ const NavLogo = () => {
         className="navbar-brand header-logo mb-2"
         style={{ backgroundColor: "#31415d", color: "#fff" }}
       >
-        SHABELLE BUSINESS
+        SHABELLE BUILDING
       </div>
     </React.Fragment>
   );

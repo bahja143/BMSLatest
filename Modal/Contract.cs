@@ -12,7 +12,7 @@ namespace BMSystem.Modal
         [Required]
         public int RoomId { get; set; }
         [Required]
-        public int AmountPerSq { get; set; }
+        public float AmountPerSq { get; set; }
         [Required]
         public string License { get; set; }
         [Required]

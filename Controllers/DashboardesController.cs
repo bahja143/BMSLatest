@@ -30,9 +30,23 @@ namespace BMSystem.Controllers
                 r.Description,
                 r.MethodOfPayment
             }).Take(7).ToListAsync();
-            var paidBillsId = await _context.ReceiptDetails.Select(r => r.BillId).ToListAsync();
-            var bills = await _context.Bills.Where(b => !paidBillsId.Contains(b.Id))
+            var paidBillsId = _context.ReceiptDetails.Select(r => r.BillId);
+            var bills = await _context.Bills.Include(b => b.Contract)
+                                            .Where(b => b.DueDate <= DateTime.Now)
                                             .ToListAsync();
+
+            var outputData = bills.Select(b => new
+            {
+                b.Id,
+                b.Date,
+                b.DueDate,
+                b.Description,
+                TenantName = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Name,
+                TenantAddress = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Address,
+                Amount = b.Amount - _context.ReceiptDetails.Where(r => r.BillId == b.Id).Sum(b => b.Amount),
+                TenantTelephone = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Telephone,
+                Room = _context.Rooms.SingleOrDefault(r => r.Id == b.Contract.RoomId).RoomNumber + "-" + _context.Rooms.SingleOrDefault(r => r.Id == b.Contract.RoomId).FloorNo
+            }).Where(b => b.Amount > 0);
 
             var receipts = await _context
                .Receipts
@@ -54,7 +68,7 @@ namespace BMSystem.Controllers
                })
                .ToListAsync();
 
-            var TotalBills = bills.Sum(b => b.Amount);
+            var TotalBills = outputData.Sum(b => b.Amount);
             var TotalReceipts = receipts.Select(r => new
             {
                 totalAmount = r.Bills.Sum(b => b.Amount),

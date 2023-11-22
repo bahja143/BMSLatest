@@ -85,11 +85,11 @@ export default function ContractForm(props) {
   });
   const [room, setRoom] = useState({
     id: 0,
-    roomNumber: "",
-    roomSizeInSq: "",
     floorNo: "",
     buildingId: 1,
+    roomNumber: "",
     description: "",
+    roomSizeInSq: "",
   });
   const [rooms, setRooms] = useState([]);
   const [tenants, SetTenants] = useState([]);
@@ -229,11 +229,11 @@ export default function ContractForm(props) {
     setShowRoom(true);
     setRoom({
       id: 0,
-      roomNumber: "",
-      roomSizeInSq: "",
       floorNo: "",
-      buildingId: "",
+      buildingId: 1,
+      roomNumber: "",
       description: "",
+      roomSizeInSq: "",
     });
   };
   const formatNumber = (inputNumber) => {
@@ -378,7 +378,7 @@ export default function ContractForm(props) {
                 </Row>
                 <Row>
                   <Col>
-                    <TextField name="tNo" label="T No" required />
+                    <TextField name="tNo" label="TIN No" required />
                   </Col>
                   <Col>
                     <UploadFileDropZone

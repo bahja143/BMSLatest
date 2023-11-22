@@ -128,7 +128,7 @@ export default function ViewContractModel({
             </InputGroup>
 
             <InputGroup className={classes.formGroup}>
-              <InputGroupText>T No.</InputGroupText>
+              <InputGroupText>TIN No.</InputGroupText>
               <Input value={contract?.tNo} disabled />
             </InputGroup>
 
@@ -188,10 +188,8 @@ export default function ViewContractModel({
             </InputGroup>
 
             <InputGroup className={classes.formGroup}>
-              <InputGroupText>Description</InputGroupText>
-              <textarea className="form-control" disabled rows="5">
-                {contract.description}
-              </textarea>
+              <InputGroupText>Remark</InputGroupText>
+              <Input value={contract.description} disabled />
             </InputGroup>
           </Grid>
           <Grid item xl={6} lg={6} sm={6} xs={12}>
@@ -201,6 +199,20 @@ export default function ViewContractModel({
               className={classes.actionsContainer}
               justifyContent="center"
             >
+              <InputGroup className={classes.formGroup}>
+                <InputGroupText>Witness 1</InputGroupText>
+                <Input value={contract.witness1} disabled />
+              </InputGroup>
+
+              <InputGroup className={classes.formGroup}>
+                <InputGroupText>Witness 2</InputGroupText>
+                <Input value={contract.witness2} disabled />
+              </InputGroup>
+
+              <InputGroup className={classes.formGroup}>
+                <InputGroupText>Witness 3</InputGroupText>
+                <Input value={contract.witness3} disabled />
+              </InputGroup>
               <ButtonGroup
                 variant="contained"
                 className={classes.formGroup}

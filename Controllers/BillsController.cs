@@ -32,9 +32,9 @@ namespace BMSystem.Controllers
                 b.DueDate,
                 b.Description,
                 TenantName = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Name,
-                TenantTelephone = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Telephone,
                 TenantAddress = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Address,
                 Amount = b.Amount - _context.ReceiptDetails.Where(r => r.BillId == b.Id).Sum(b => b.Amount),
+                TenantTelephone = _context.Tenants.SingleOrDefault(t => t.Id == b.Contract.TenantId).Telephone,
                 Room = _context.Rooms.SingleOrDefault(r => r.Id == b.Contract.RoomId).RoomNumber + "-" + _context.Rooms.SingleOrDefault(r => r.Id == b.Contract.RoomId).FloorNo
             }).Where(b => b.Amount > 0);
 

@@ -8,7 +8,7 @@ namespace BMSystem.Modal
         [Required]
         public string RoomNumber { get; set; }
         [Required]
-        public int RoomSizeInSq { get; set; }
+        public float RoomSizeInSq { get; set; }
         [Required]
         public string FloorNo { get; set; }
         public Building? Building { get; set; }

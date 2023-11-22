@@ -9,7 +9,7 @@ namespace BMSystem.Modal
         [Required]
         public int ContractId { get; set; }
         [Required]
-        public int Amount { get; set; }
+        public float Amount { get; set; }
         [Required]
         public DateTime DueDate { get; set; }
         public string? Description { get; set; }
